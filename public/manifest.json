@@ -1,0 +1,7 @@
+{
+  "short_name": "Simple Sign-in",
+  "name": "Simple Sign-in",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone"
+}

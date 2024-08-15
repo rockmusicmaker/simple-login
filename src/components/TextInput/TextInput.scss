@@ -1,0 +1,75 @@
+@import "../../theme.scss";
+
+.text-input {
+  display: flex;
+  flex-direction: column;
+
+  .text-input-label {
+    color: $text-weak;
+    font-size: $sm;
+  }
+
+  .text-input-input {
+    margin-top: $xs;
+    border-width: 0;
+    background-color: $fill;
+    border-radius: $xs;
+    padding: $sm;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      border-width: 0;
+      background-color: transparent;
+      width: 100%;
+      font-size: $sm;
+    }
+
+    .icon {
+      width: $sm;
+      height: $sm;
+      stroke-width: $stroke-sm;
+    }
+
+    button {
+      border-width: 0;
+      cursor: pointer;
+      background-color: transparent;
+    }
+    button:focus,
+    button:focus-visible {
+      outline-style: unset;
+      outline-color: transparent;
+      outline-width: 0;
+    }
+  }
+
+  .error {
+    color: $red;
+  }
+
+  .errorMessage {
+    margin-top: $xs;
+    color: $red;
+    font-size: $xs;
+    height: $sm;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.text-input-input:focus-within {
+  outline-style: solid;
+  outline-width: $stroke-sm;
+  outline-color: $blue-600;
+  outline-offset: $stroke-sm;
+}
+
+input:focus,
+input:focus-visible {
+  outline-style: unset;
+  outline-color: transparent;
+  outline-width: 0;
+}

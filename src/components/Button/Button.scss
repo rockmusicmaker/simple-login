@@ -1,0 +1,32 @@
+@import "../../theme.scss";
+
+.button {
+  background-color: $blue-600;
+  border-radius: $xs;
+  border-width: 0;
+  width: fit-content;
+  padding-left: $med;
+  padding-right: $med;
+  cursor: pointer;
+
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  p {
+    color: $background;
+    font-size: $sm;
+    background-color: transparent;
+  }
+}
+
+.button:hover {
+  background-color: $blue-300;
+}
+
+button:focus,
+button:focus-visible {
+  outline-style: solid;
+  outline-width: $stroke-sm;
+  outline-color: $blue-600;
+  outline-offset: $stroke-sm;
+}

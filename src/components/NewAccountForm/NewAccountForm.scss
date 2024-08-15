@@ -1,0 +1,56 @@
+@import "../../theme.scss";
+
+.newAccountForm {
+  background: $background;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: $xxl;
+  min-height: 0;
+  min-width: fit-content;
+  align-items: center;
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    h1 {
+      width: 100%;
+      white-space: nowrap;
+      color: $text-strong;
+      font-size: $lg;
+      margin: 0;
+      padding: 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: $sm;
+      color: $text-weak;
+      width: 100%;
+      margin-top: $xs;
+      padding: 0;
+    }
+  }
+
+  form {
+    margin-top: $xl;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    div:first-child {
+      margin-top: 0;
+    }
+
+    div {
+      width: 100%;
+      margin-top: $xs;
+    }
+
+    .submit {
+      margin-top: $xl;
+    }
+  }
+}
