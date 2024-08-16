@@ -34,17 +34,32 @@
       margin-top: $xs;
     }
 
-    .button-container {
+    .footer {
       margin-top: $xl;
       display: flex;
       width: 100%;
       min-width: fit-content;
+      justify-content: space-between;
+      align-items: center;
 
       & > * {
-        margin-left: $med;
+        margin-left: $sm;
       }
-      & > *:first-child {
+      & > *:first {
         margin-left: 0;
+      }
+
+      .button-container {
+        display: flex;
+        width: 100%;
+        min-width: fit-content;
+
+        & > * {
+          margin-left: $med;
+        }
+        & > *:first-child {
+          margin-left: 0;
+        }
       }
     }
   }

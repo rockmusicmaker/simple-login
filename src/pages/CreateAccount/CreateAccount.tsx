@@ -2,12 +2,13 @@ import "./CreateAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
 import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthService } from "src/hooks";
 
 export type CreateAccountProps = { homeRoute: string };
 
 export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
   const navigate = useNavigate();
-
+  const { registerUser, loading } = useAuthService();
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
@@ -22,11 +23,16 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
     [formValues]
   );
 
-  const registerUser = useCallback(
+  const submitForm = useCallback(
     (username: string, password: string) => {
-      setTimeout(() => {
-        navigate(homeRoute);
-      }, 250);
+      registerUser(
+        { username, password },
+        {
+          onSuccess: () => {
+            navigate(homeRoute);
+          },
+        }
+      );
     },
     [homeRoute, navigate]
   );
@@ -46,12 +52,13 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
           onSubmit={(e) => {
             e.preventDefault();
             if (
+              !loading &&
               formValues.confirm &&
               formValues.password &&
               formValues.userName &&
               matchingPasswords
             ) {
-              registerUser(formValues.userName, formValues.password);
+              submitForm(formValues.userName, formValues.password);
             }
           }}
         >
@@ -77,15 +84,18 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
             }
           />
 
-          <div className="button-container">
-            <Button label="Create" type="submit" />
-            <Button
-              label="Home"
-              variant="secondary"
-              onClick={() => {
-                navigate(homeRoute);
-              }}
-            />
+          <div className="footer">
+            <div className="button-container">
+              <Button label="Create" type="submit" />
+              <Button
+                label="Home"
+                variant="secondary"
+                onClick={() => {
+                  navigate(homeRoute);
+                }}
+              />
+            </div>
+            {loading && <p>Loading...</p>}
           </div>
         </form>
       </div>

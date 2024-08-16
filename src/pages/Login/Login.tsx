@@ -26,7 +26,7 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
         <div className="create-account">
           <Button
             variant="secondary"
-            label="Regesiter"
+            label="Register"
             onClick={() => {
               navigate(registerRoute);
             }}
