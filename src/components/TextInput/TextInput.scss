@@ -18,7 +18,6 @@
     background-color: $fill;
     border-radius: $xs;
     padding: $xs;
-    width: 100%;
     min-width: 0;
     display: flex;
     justify-content: space-between;
@@ -33,7 +32,7 @@
       background-color: transparent;
       width: 100%;
       font-size: $sm;
-      padding: $stroke-med;
+      padding: $xs;
 
       &:focus,
       &:focus-visible {
@@ -48,6 +47,11 @@
       height: $sm;
       stroke-width: $stroke-sm;
       flex-shrink: 0;
+      margin: $xs;
+
+      &.error {
+        color: $red;
+      }
     }
 
     button {
@@ -59,20 +63,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: $stroke-med;
+      padding: 0;
     }
-  }
-
-  .error {
-    color: $red;
   }
 
   .error-message {
     margin-top: $xs;
     color: $red;
-    font-size: $xs;
+    font-size: $sm;
     height: $sm;
-    font-weight: bold;
-    text-transform: uppercase;
+    padding-left: $xs;
+    padding-right: $xs;
   }
 }

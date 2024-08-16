@@ -3,10 +3,9 @@
 .button {
   @include raised;
   @include focuses;
-
-  background-color: $blue-600;
   border-radius: $xs;
-  border-width: 0;
+  border-width: 1px;
+  border-style: solid;
   width: fit-content;
   padding-left: $med;
   padding-right: $med;
@@ -15,12 +14,37 @@
   cursor: pointer;
 
   p {
-    color: $background;
     font-size: $sm;
     background-color: transparent;
+    font-weight: bold;
   }
 
-  &:hover {
-    background-color: $blue-300;
+  &.primary {
+    background-color: $blue-600;
+    border-color: transparent;
+    p {
+      color: $background;
+    }
+
+    &:hover {
+      background-color: $blue-500;
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    border-color: $blue-600;
+    p {
+      color: $blue-600;
+    }
+
+    &:hover {
+      background-color: $blue-300;
+      border-color: $blue-300;
+
+      p {
+        color: $blue-600;
+      }
+    }
   }
 }

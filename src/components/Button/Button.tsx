@@ -6,6 +6,7 @@ export type ButtonProps = {
   onClick: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit";
   className?: string;
+  variant?: "primary" | "secondary";
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -13,10 +14,11 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   className,
+  variant = "primary",
 }) => {
   return (
     <button
-      className={`button ${className}`}
+      className={`button ${variant} ${className ?? ""}`}
       type={type}
       onClick={onClick}
       tabIndex={0}

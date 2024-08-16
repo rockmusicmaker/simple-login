@@ -70,6 +70,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
             />
             <Button
               label="Home"
+              variant="secondary"
               onClick={() => {
                 redirect(homeRoute);
               }}
