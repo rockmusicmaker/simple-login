@@ -11,7 +11,7 @@ export type ButtonProps = {
 export const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
-  type,
+  type = "button",
   className,
 }) => {
   return (

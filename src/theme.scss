@@ -20,3 +20,64 @@ $xxl: 16rem;
 //sizing
 $stroke-sm: 2px;
 $stroke-med: 4px;
+
+//shadow
+@mixin raised {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+//focus
+@mixin focus {
+  outline-style: solid;
+  outline-width: $stroke-sm;
+  outline-color: $blue-600;
+  outline-offset: $stroke-sm;
+}
+@mixin focuses {
+  &:focus,
+  &:focus-visible {
+    @include focus;
+  }
+}
+
+//typeography
+h1 {
+  white-space: nowrap;
+  color: $text-strong;
+  font-size: $lg;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-size: $sm;
+  color: $text-weak;
+}
+
+//responsive breakpoints
+@mixin screen-sm {
+  @media (min-width: #{640px}) {
+    @content;
+  }
+}
+
+@mixin screen-med {
+  @media (min-width: #{768px}) {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  @media (min-width: #{1024px}) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media (min-width: #{1280px}) {
+    @content;
+  }
+}

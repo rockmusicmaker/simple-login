@@ -3,10 +3,13 @@
 .text-input {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: 0;
 
   .text-input-label {
     color: $text-weak;
     font-size: $sm;
+    min-width: 0;
   }
 
   .text-input-input {
@@ -14,35 +17,49 @@
     border-width: 0;
     background-color: $fill;
     border-radius: $xs;
-    padding: $sm;
+    padding: $xs;
     width: 100%;
+    min-width: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &:focus-within {
+      @include focus;
+    }
 
     input {
       border-width: 0;
       background-color: transparent;
       width: 100%;
       font-size: $sm;
+      padding: $stroke-med;
+
+      &:focus,
+      &:focus-visible {
+        outline-style: unset;
+        outline-color: transparent;
+        outline-width: 0;
+      }
     }
 
     .icon {
       width: $sm;
       height: $sm;
       stroke-width: $stroke-sm;
+      flex-shrink: 0;
     }
 
     button {
+      @include focuses;
       border-width: 0;
       cursor: pointer;
       background-color: transparent;
-    }
-    button:focus,
-    button:focus-visible {
-      outline-style: unset;
-      outline-color: transparent;
-      outline-width: 0;
+      border-radius: $xs;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: $stroke-med;
     }
   }
 
@@ -50,7 +67,7 @@
     color: $red;
   }
 
-  .errorMessage {
+  .error-message {
     margin-top: $xs;
     color: $red;
     font-size: $xs;
@@ -58,18 +75,4 @@
     font-weight: bold;
     text-transform: uppercase;
   }
-}
-
-.text-input-input:focus-within {
-  outline-style: solid;
-  outline-width: $stroke-sm;
-  outline-color: $blue-600;
-  outline-offset: $stroke-sm;
-}
-
-input:focus,
-input:focus-visible {
-  outline-style: unset;
-  outline-color: transparent;
-  outline-width: 0;
 }

@@ -6,12 +6,13 @@ import {
   redirect,
   Navigate,
 } from "react-router-dom";
-import { CreateAccount } from "src/pages";
+import { CreateAccount, Login } from "src/pages";
 
 const router = createBrowserRouter([
+  { path: "/", element: <Login /> },
   {
-    path: "/",
-    element: <CreateAccount />,
+    path: "/register",
+    element: <CreateAccount homeRoute="/" />,
   },
   {
     path: "*",

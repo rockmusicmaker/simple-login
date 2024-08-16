@@ -8,7 +8,7 @@ export const LandingContainer: React.FC<LandingContainerProps> = ({
 }) => {
   return (
     <div className="background">
-      {children}
+      <div className="content">{children}</div>
       <img
         className="landing-image"
         src={`${process.env.PUBLIC_URL}/images/landing.jpeg`}

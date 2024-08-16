@@ -1,10 +1,11 @@
 import "./CreateAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
 import { useMemo, useState } from "react";
+import { redirect } from "react-router-dom";
 
-export type CreateAccountProps = {};
+export type CreateAccountProps = { homeRoute: string };
 
-export const CreateAccount: React.FC<CreateAccountProps> = ({}) => {
+export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
@@ -21,7 +22,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({}) => {
 
   return (
     <LandingContainer>
-      <div className="newAccountForm">
+      <div className="new-account-form">
         <div className="heading">
           <h1>Create account</h1>
           <p>
@@ -51,21 +52,29 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({}) => {
               !matchingPasswords ? "Password must match" : undefined
             }
           />
-          <Button
-            className="submit"
-            label="Create"
-            onClick={(e) => {
-              if (
-                !formValues.confirm ||
-                !formValues.password ||
-                !formValues.userName ||
-                !matchingPasswords
-              ) {
-                e.preventDefault();
-              }
-            }}
-            type="submit"
-          />
+
+          <div className="button-container">
+            <Button
+              label="Create"
+              onClick={(e) => {
+                if (
+                  !formValues.confirm ||
+                  !formValues.password ||
+                  !formValues.userName ||
+                  !matchingPasswords
+                ) {
+                  e.preventDefault();
+                }
+              }}
+              type="submit"
+            />
+            <Button
+              label="Home"
+              onClick={() => {
+                redirect(homeRoute);
+              }}
+            />
+          </div>
         </form>
       </div>
     </LandingContainer>

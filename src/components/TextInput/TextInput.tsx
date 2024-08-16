@@ -38,8 +38,9 @@ export const TextInput: React.FC<TextInputProps> = ({
           <ExclamationCircleIcon className="error icon" />
         ) : initialType === "password" ? (
           <button
-            onClick={(e) => {
-              e.preventDefault();
+            tabIndex={0}
+            type="button"
+            onClick={() => {
               setType(type === "password" ? "text" : "password");
             }}
           >
@@ -53,7 +54,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           <></>
         )}
       </span>
-      <p className="errorMessage">{errorMessage}</p>
+      <p className="error-message">{errorMessage}</p>
     </div>
   );
 };
