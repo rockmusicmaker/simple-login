@@ -1,11 +1,13 @@
 import "./CreateAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
-import { useMemo, useState } from "react";
-import { redirect } from "react-router-dom";
+import { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export type CreateAccountProps = { homeRoute: string };
 
 export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
+  const navigate = useNavigate();
+
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
@@ -20,6 +22,15 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
     [formValues]
   );
 
+  const registerUser = useCallback(
+    (username: string, password: string) => {
+      setTimeout(() => {
+        navigate(homeRoute);
+      }, 250);
+    },
+    [homeRoute, navigate]
+  );
+
   return (
     <LandingContainer>
       <div className="new-account-form">
@@ -30,7 +41,20 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
             information
           </p>
         </div>
-        <form name="Create account">
+        <form
+          name="Create account"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (
+              formValues.confirm &&
+              formValues.password &&
+              formValues.userName &&
+              matchingPasswords
+            ) {
+              registerUser(formValues.userName, formValues.password);
+            }
+          }}
+        >
           <TextInput
             type="text"
             label="Username"
@@ -54,25 +78,12 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
           />
 
           <div className="button-container">
-            <Button
-              label="Create"
-              onClick={(e) => {
-                if (
-                  !formValues.confirm ||
-                  !formValues.password ||
-                  !formValues.userName ||
-                  !matchingPasswords
-                ) {
-                  e.preventDefault();
-                }
-              }}
-              type="submit"
-            />
+            <Button label="Create" type="submit" />
             <Button
               label="Home"
               variant="secondary"
               onClick={() => {
-                redirect(homeRoute);
+                navigate(homeRoute);
               }}
             />
           </div>

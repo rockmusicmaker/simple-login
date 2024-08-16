@@ -3,11 +3,18 @@ import "./Button.scss";
 
 export type ButtonProps = {
   label: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  type?: "button" | "submit";
   className?: string;
   variant?: "primary" | "secondary";
-};
+} & (
+  | {
+      type?: "button" | undefined;
+      onClick: MouseEventHandler<HTMLButtonElement>;
+    }
+  | {
+      type: "submit";
+      onClick?: MouseEventHandler<HTMLButtonElement>;
+    }
+);
 
 export const Button: React.FC<ButtonProps> = ({
   label,

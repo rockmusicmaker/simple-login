@@ -9,7 +9,7 @@ import {
 import { CreateAccount, Login } from "src/pages";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login /> },
+  { path: "/", element: <Login registerRoute="/register" /> },
   {
     path: "/register",
     element: <CreateAccount homeRoute="/" />,

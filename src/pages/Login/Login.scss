@@ -1,1 +1,84 @@
 @import "src/theme.scss";
+
+.login-container {
+  background: $background;
+  display: flex;
+  flex-direction: column;
+  padding: $xxl;
+  min-height: 0;
+  width: fit-content;
+  align-items: center;
+
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  & > * {
+    width: 100%;
+    margin-top: $lg;
+  }
+
+  .heading {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    & > * {
+      white-space: nowrap;
+    }
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: $med;
+    display: flex;
+    min-width: fit-content;
+    flex-direction: column;
+
+    & > *:first-child {
+      margin-top: 0;
+    }
+
+    & > * {
+      width: 100%;
+      margin-top: $xs;
+    }
+
+    button {
+      width: min-content;
+    }
+  }
+
+  .divider {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    height: $sm;
+
+    & > * {
+      margin-left: $sm;
+    }
+    & > *:first-child {
+      margin-left: 0;
+    }
+
+    .divider-line {
+      width: 100%;
+      min-width: 0;
+      border-radius: $xs;
+      background-color: $stroke-weak;
+      height: $stroke-sm;
+    }
+  }
+
+  .create-account {
+    display: flex;
+
+    button {
+      width: min-content;
+    }
+  }
+}

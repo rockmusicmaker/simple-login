@@ -43,6 +43,7 @@ export const TextInput: React.FC<TextInputProps> = ({
             onClick={() => {
               setType(type === "password" ? "text" : "password");
             }}
+            aria-label="hide & show password"
           >
             {type === "password" ? (
               <EyeSlashIcon className="icon" />

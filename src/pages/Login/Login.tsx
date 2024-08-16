@@ -1,27 +1,45 @@
+import "./Login.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LandingContainer } from "src/components";
 import { TextInput, Button } from "src/components";
 
-export type LoginProps = {};
+export type LoginProps = {
+  registerRoute: string;
+};
 
-export const Login: React.FC<LoginProps> = ({}) => {
+export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
-    confirm?: string;
   }>({});
 
   return (
     <LandingContainer>
-      <div className="login-form">
+      <div className="login-container">
         <div className="heading">
-          <h1>Create account</h1>
-          <p>
-            By making an account, you will be able to return to your saved
-            information
-          </p>
+          <h1>Login</h1>
+          <p>Login to access your account</p>
         </div>
-        <form name="Create account">
+
+        <div className="create-account">
+          <Button
+            variant="secondary"
+            label="Regesiter"
+            onClick={() => {
+              navigate(registerRoute);
+            }}
+          />
+        </div>
+
+        <div className="divider">
+          <div className="divider-line" />
+          <p>or</p>
+          <div className="divider-line" />
+        </div>
+
+        <form className="login-form">
           <TextInput
             type="text"
             label="Username"
@@ -34,21 +52,11 @@ export const Login: React.FC<LoginProps> = ({}) => {
             value={formValues.password ?? ""}
             onChange={(c) => setFormValues((v) => ({ ...v, password: c }))}
           />
-          <TextInput
-            type="password"
-            label="Confirm password"
-            value={formValues.confirm ?? ""}
-            onChange={(c) => setFormValues((v) => ({ ...v, confirm: c }))}
-          />
           <Button
             className="submit"
-            label="Create"
+            label="Login"
             onClick={(e) => {
-              if (
-                !formValues.confirm ||
-                !formValues.password ||
-                !formValues.userName
-              ) {
+              if (!formValues.password || !formValues.userName) {
                 e.preventDefault();
               }
             }}
