@@ -21,7 +21,7 @@ const DECODE_TOKEN = (token: string) => ({
   expires: Number(token.split("/")[1]),
 });
 
-export const useMockAuthServerProvider = ({
+export const useMockAuthServiceProvider = ({
   mockNetworkDelay = 250,
   mockUserTableLocalStorageKey = "simple_sign_in_users",
   hashUsernameAndPassword = SIMPLE_HASH,

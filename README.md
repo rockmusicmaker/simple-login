@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# Simple Login
+Simple Login is a functional react + typescript + sass project demonstrating a simple login flow for a web application.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Users can register a new user, login as that user, and delete their account.
 
-## Available Scripts
+All saved data is stored in the browser's local storage to mock a API service with persistent storage. 
 
-In the project directory, you can run:
+> This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### `npm start`
+# Running
+After cloning the repo, simply:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. run `npm install`
+2. run `npm start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Software design
+This application is built with the following:
 
-### `npm test`
+## Pages
+The pages serve as the top layer controller as the render visual components, manage state, and leverage hooks
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Login
+The landing page for the application is `Login`. This page collets user's sign-in information and routes them to the home page if they are authenticated or directs user's to register an account.
 
-### `npm run build`
+### RegisterAccount
+The `RegisterAccount` page collects user's account information in the form of a username and a password. The form will verify that the password and the confirmed password match before attempt to create the user.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Home
+The `Home` page is where a hypothetical application would live. To mimic that, this application will show the logged in user and enable users to logout or delete the account.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Hooks
+The hooks in this application do most of the heavy lifting by managing complex state and actions.
 
-### `npm run eject`
+### useAuthService
+`useAuthService` serves as the data fetching service in the application. This hook is responsible for interacting mock APIs to create, find, and delete users 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### useLocalStorage
+Local storage in this application serves two purposes. One is to mock a persistent data store typically interfaced with via an API and the second is to store logged in user's token for future API requests.
+`useLocalStorage` encapsulates interfacing with the browser's local storage.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### useMockAuthServiceProvider
+`useMockAuthServiceProvider` is a hook used to mock an API server responding to requests from this application.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Components
+The components module contains a few custom built UI components. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### TextInput
+A input field to gather text from the user including passwords
 
-## Learn More
+### LandingContainer
+A wrapping component used to orient the background image with the content of the application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Button
+A clickable interface element to enable user actions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Styling
+Styling for this application was done with sass so that modular css could be used to style each component and page.
+A common `theme.scss` file contains the global styles and reused theme variables across all scss files.
+

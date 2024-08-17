@@ -1,6 +1,5 @@
-import { get } from "http";
 import { useCallback, useMemo, useState } from "react";
-import { useMockAuthServerProvider, useLocalStorage } from "src/hooks";
+import { useMockAuthServiceProvider, useLocalStorage } from "src/hooks";
 
 export type AuthServiceUser = { username: string; password: string };
 export type AuthServiceHandlers = {
@@ -9,7 +8,7 @@ export type AuthServiceHandlers = {
 };
 
 export const useAuthService = (authTokenKey = "simple_sign_in_auth_token") => {
-  const makeRequest = useMockAuthServerProvider();
+  const makeRequest = useMockAuthServiceProvider();
   const [state, setState] = useState<"loading" | "error" | undefined>();
   const [authToken, setAuthToken] = useLocalStorage(authTokenKey);
   const [user, setUser] = useState<{ username: string }>();
