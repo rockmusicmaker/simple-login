@@ -30,6 +30,7 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
 
   const submitForm = useCallback(
     (username: string, password: string) => {
+      setRegisterError(undefined);
       registerUser(
         { username, password },
         {
@@ -37,7 +38,7 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
             navigate(homeRoute);
           },
           onFailure: () => {
-            console.error("didn't work");
+            setRegisterError("Unable to register user");
           },
         }
       );
@@ -45,7 +46,6 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
     [homeRoute, navigate, registerUser]
   );
 
-  useEffect(() => console.log({ loading }), [loading]);
   return (
     <LandingContainer>
       <div className={classnames("new-account-form")}>
@@ -104,9 +104,14 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
                 }}
               />
             </div>
-            {loading && <p>Loading...</p>}
           </div>
         </form>
+        <div className={classnames("feedback")}>
+          {loading && <p>Loading...</p>}
+          {registerError && (
+            <p className={classnames("error")}>{registerError}</p>
+          )}
+        </div>
       </div>
     </LandingContainer>
   );

@@ -1,10 +1,6 @@
 import "./TextInput.scss";
 import { HTMLInputTypeAttribute, useState } from "react";
-import {
-  ExclamationCircleIcon,
-  EyeSlashIcon,
-  EyeIcon,
-} from "@heroicons/react/24/outline";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/outline";
 import classnames from "classnames";
 
 export type TextInputProps = {
@@ -42,9 +38,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
-        {errorMessage ? (
-          <ExclamationCircleIcon className={classnames("error icon")} />
-        ) : initialType === "password" ? (
+        {initialType === "password" && (
           <button
             tabIndex={-1}
             type="button"
@@ -59,8 +53,6 @@ export const TextInput: React.FC<TextInputProps> = ({
               <EyeIcon className={classnames("icon")} />
             )}
           </button>
-        ) : (
-          <></>
         )}
       </span>
       <p className={classnames("error-message", `width-${width}`)}>

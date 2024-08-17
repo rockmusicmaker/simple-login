@@ -60,12 +60,14 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
             label="Username"
             value={formValues.userName ?? ""}
             onChange={(c) => setFormValues((v) => ({ ...v, userName: c }))}
+            width="full"
           />
           <TextInput
             type="password"
             label="Password"
             value={formValues.password ?? ""}
             onChange={(c) => setFormValues((v) => ({ ...v, password: c }))}
+            width="full"
           />
           <Button
             className={classnames("submit")}

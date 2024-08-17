@@ -58,4 +58,12 @@
       }
     }
   }
+
+  .feedback {
+    margin-top: $med;
+
+    .error {
+      color: $red;
+    }
+  }
 }
