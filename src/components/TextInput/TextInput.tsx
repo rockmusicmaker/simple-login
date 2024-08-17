@@ -27,12 +27,16 @@ export const TextInput: React.FC<TextInputProps> = ({
   const [type, setType] = useState(initialType);
 
   return (
-    <div className={classnames("text-input")}>
-      <label className={classnames("text-input-label")} htmlFor={label}>
+    <div className={classnames("text-input", `width-${width}`)}>
+      <label
+        className={classnames("text-input-label", `width-${width}`)}
+        htmlFor={label}
+      >
         {label}
       </label>
-      <span className={classnames("text-input-input")}>
+      <span className={classnames("text-input-input", `width-${width}`)}>
         <input
+          id={`${label}`}
           type={type}
           name={label}
           value={value}
@@ -42,7 +46,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           <ExclamationCircleIcon className={classnames("error icon")} />
         ) : initialType === "password" ? (
           <button
-            tabIndex={0}
+            tabIndex={-1}
             type="button"
             onClick={() => {
               setType(type === "password" ? "text" : "password");
@@ -59,7 +63,9 @@ export const TextInput: React.FC<TextInputProps> = ({
           <></>
         )}
       </span>
-      <p className={classnames("error-message")}>{errorMessage}</p>
+      <p className={classnames("error-message", `width-${width}`)}>
+        {errorMessage}
+      </p>
     </div>
   );
 };

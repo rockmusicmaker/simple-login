@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useMockAuthServerProvider } from "src/hooks";
 
 export type AuthServiceUser = { username: string; password: string };
 export type AuthServiceHandlers = {
@@ -6,38 +7,57 @@ export type AuthServiceHandlers = {
   onFailure?: () => void;
 };
 
-export const useAuthService = (mockNetworkDelay = 2500) => {
+export const useAuthService = () => {
+  const makeRequest = useMockAuthServerProvider();
   const [loading, setLoading] = useState(false);
+
   const registerUser = useCallback(
     (
       { username, password }: AuthServiceUser,
       { onFailure, onSuccess }: AuthServiceHandlers = {}
     ) => {
+      console.log({ username, password });
       setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        if (onSuccess) {
-          onSuccess();
-        }
-      }, mockNetworkDelay);
+      makeRequest("/auth/register", { username, password })
+        .then(() => {
+          if (onSuccess) {
+            onSuccess();
+          }
+        })
+        .catch(() => {
+          if (onFailure) {
+            onFailure();
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
-    []
+    [makeRequest]
   );
 
   const loginUser = useCallback(
     (
       { username, password }: AuthServiceUser,
-      { onFailure, onSuccess }: AuthServiceHandlers
+      { onFailure, onSuccess }: AuthServiceHandlers = {}
     ) => {
       setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        if (onSuccess) {
-          onSuccess();
-        }
-      }, mockNetworkDelay);
+      makeRequest("/auth/authenticate", { username, password })
+        .then(() => {
+          if (onSuccess) {
+            onSuccess();
+          }
+        })
+        .catch(() => {
+          if (onFailure) {
+            onFailure();
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
-    []
+    [makeRequest]
   );
 
   return useMemo(

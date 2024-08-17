@@ -1,6 +1,6 @@
 import "./RegisterAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthService } from "src/hooks";
 import classnames from "classnames";
@@ -18,6 +18,8 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
     confirm?: string;
   }>({});
 
+  const [registerError, setRegisterError] = useState<string>();
+
   const matchingPasswords = useMemo(
     () =>
       formValues.password === undefined ||
@@ -34,12 +36,16 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
           onSuccess: () => {
             navigate(homeRoute);
           },
+          onFailure: () => {
+            console.error("didn't work");
+          },
         }
       );
     },
-    [homeRoute, navigate]
+    [homeRoute, navigate, registerUser]
   );
 
+  useEffect(() => console.log({ loading }), [loading]);
   return (
     <LandingContainer>
       <div className={classnames("new-account-form")}>
@@ -98,7 +104,7 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
                 }}
               />
             </div>
-            {!loading && <p>Loading...</p>}
+            {loading && <p>Loading...</p>}
           </div>
         </form>
       </div>

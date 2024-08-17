@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LandingContainer } from "src/components";
 import { TextInput, Button } from "src/components";
 import classnames from "classnames";
+import { useAuthService } from "src/hooks";
 
 export type LoginProps = {
   registerRoute: string;
@@ -11,6 +12,7 @@ export type LoginProps = {
 
 export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
   const navigate = useNavigate();
+  const { loading, loginUser } = useAuthService();
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
@@ -40,7 +42,19 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
           <div className={classnames("divider-line")} />
         </div>
 
-        <form className={classnames("login-form")}>
+        <form
+          className={classnames("login-form")}
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!formValues.password || !formValues.userName) {
+              return;
+            }
+            loginUser({
+              username: formValues.userName,
+              password: formValues.password,
+            });
+          }}
+        >
           <TextInput
             type="text"
             label="Username"
@@ -56,11 +70,6 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
           <Button
             className={classnames("submit")}
             label="Login"
-            onClick={(e) => {
-              if (!formValues.password || !formValues.userName) {
-                e.preventDefault();
-              }
-            }}
             type="submit"
           />
         </form>
