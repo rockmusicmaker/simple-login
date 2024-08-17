@@ -1,0 +1,35 @@
+@import "src/theme.scss";
+
+.home-container {
+  background: $background;
+  padding: $xxl;
+  min-height: 0;
+  width: fit-content;
+
+  display: flex;
+  flex-direction: column;
+
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  & > * {
+    margin-top: $lg;
+  }
+
+  .actions {
+    display: flex;
+    width: fit-content;
+
+    & > *:first-child {
+      margin-left: 0;
+    }
+    & > * {
+      margin-left: $lg;
+    }
+  }
+
+  .error {
+    text: $red;
+  }
+}

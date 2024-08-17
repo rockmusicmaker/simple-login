@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 
 export type LocalStorageUpdater<T extends string> = (
-  updater: T | ((currentValue: T | undefined) => T | undefined)
+  updater: T | undefined | ((currentValue: T | undefined) => T | undefined)
 ) => void;
 
 export const useLocalStorage = <T extends string = string>(

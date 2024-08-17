@@ -1,24 +1,22 @@
 import "./RegisterAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthService } from "src/hooks";
 import classnames from "classnames";
 
-export type RegisterAccountProps = { homeRoute: string };
+export type RegisterAccountProps = { loginRoute: string };
 
 export const RegisterAccount: React.FC<RegisterAccountProps> = ({
-  homeRoute,
+  loginRoute,
 }) => {
   const navigate = useNavigate();
-  const { registerUser, loading } = useAuthService();
+  const { registerUser, loading, error } = useAuthService();
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
     confirm?: string;
   }>({});
-
-  const [registerError, setRegisterError] = useState<string>();
 
   const matchingPasswords = useMemo(
     () =>
@@ -30,20 +28,16 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
 
   const submitForm = useCallback(
     (username: string, password: string) => {
-      setRegisterError(undefined);
       registerUser(
         { username, password },
         {
           onSuccess: () => {
-            navigate(homeRoute);
-          },
-          onFailure: () => {
-            setRegisterError("Unable to register user");
+            navigate(loginRoute);
           },
         }
       );
     },
-    [homeRoute, navigate, registerUser]
+    [loginRoute, navigate, registerUser]
   );
 
   return (
@@ -100,7 +94,7 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
                 label="Home"
                 variant="secondary"
                 onClick={() => {
-                  navigate(homeRoute);
+                  navigate(loginRoute);
                 }}
               />
             </div>
@@ -108,9 +102,7 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
         </form>
         <div className={classnames("feedback")}>
           {loading && <p>Loading...</p>}
-          {registerError && (
-            <p className={classnames("error")}>{registerError}</p>
-          )}
+          {error && <p className={classnames("error")}>Unable to register</p>}
         </div>
       </div>
     </LandingContainer>

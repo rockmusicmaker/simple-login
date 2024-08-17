@@ -1,5 +1,6 @@
+import { get } from "http";
 import { useCallback, useMemo, useState } from "react";
-import { useMockAuthServerProvider } from "src/hooks";
+import { useMockAuthServerProvider, useLocalStorage } from "src/hooks";
 
 export type AuthServiceUser = { username: string; password: string };
 export type AuthServiceHandlers = {
@@ -7,30 +8,30 @@ export type AuthServiceHandlers = {
   onFailure?: () => void;
 };
 
-export const useAuthService = () => {
+export const useAuthService = (authTokenKey = "simple_sign_in_auth_token") => {
   const makeRequest = useMockAuthServerProvider();
-  const [loading, setLoading] = useState(false);
+  const [state, setState] = useState<"loading" | "error" | undefined>();
+  const [authToken, setAuthToken] = useLocalStorage(authTokenKey);
+  const [user, setUser] = useState<{ username: string }>();
 
   const registerUser = useCallback(
     (
       { username, password }: AuthServiceUser,
       { onFailure, onSuccess }: AuthServiceHandlers = {}
     ) => {
-      console.log({ username, password });
-      setLoading(true);
+      setState("loading");
       makeRequest("/auth/register", { username, password })
         .then(() => {
           if (onSuccess) {
             onSuccess();
           }
+          setState(undefined);
         })
         .catch(() => {
+          setState("error");
           if (onFailure) {
             onFailure();
           }
-        })
-        .finally(() => {
-          setLoading(false);
         });
     },
     [makeRequest]
@@ -41,27 +42,121 @@ export const useAuthService = () => {
       { username, password }: AuthServiceUser,
       { onFailure, onSuccess }: AuthServiceHandlers = {}
     ) => {
-      setLoading(true);
+      setState("loading");
       makeRequest("/auth/authenticate", { username, password })
-        .then(() => {
+        .then(({ token } = {}) => {
+          if (!token) {
+            setState("error");
+            if (onFailure) {
+              onFailure();
+            }
+            return;
+          }
+          setAuthToken(token);
+
           if (onSuccess) {
             onSuccess();
           }
+          setState(undefined);
+        })
+        .catch(() => {
+          setState("error");
+          if (onFailure) {
+            onFailure();
+          }
+        });
+    },
+    [makeRequest, setAuthToken]
+  );
+
+  const logout = useCallback(() => {
+    setAuthToken(undefined);
+  }, [setAuthToken]);
+
+  const getUser = useCallback(
+    ({ onFailure, onSuccess }: AuthServiceHandlers = {}) => {
+      if (!authToken) {
+        setState("error");
+        if (onFailure) {
+          onFailure();
+        }
+        return;
+      }
+
+      setState("loading");
+      makeRequest("/user", { token: authToken })
+        .then(({ username } = {}) => {
+          if (!username) {
+            if (onFailure) {
+              onFailure();
+            }
+            setState("error");
+          }
+          if (onSuccess) {
+            onSuccess();
+          }
+          setUser({ username });
+          setState(undefined);
         })
         .catch(() => {
           if (onFailure) {
             onFailure();
           }
-        })
-        .finally(() => {
-          setLoading(false);
+          setState("error");
         });
     },
-    [makeRequest]
+    [authToken, makeRequest]
+  );
+
+  const deleteUser = useCallback(
+    ({ onFailure, onSuccess }: AuthServiceHandlers = {}) => {
+      if (!authToken) {
+        setState("error");
+        if (onFailure) {
+          onFailure();
+        }
+        return;
+      }
+
+      setState("loading");
+      makeRequest("/user/delete", { token: authToken })
+        .then(() => {
+          setState(undefined);
+          if (onSuccess) {
+            onSuccess();
+          }
+        })
+        .catch(() => {
+          setState("error");
+          if (onFailure) {
+            onFailure();
+          }
+        });
+    },
+    [authToken, makeRequest]
   );
 
   return useMemo(
-    () => ({ loading, loginUser, registerUser }),
-    [loginUser, registerUser, loading]
+    () => ({
+      loading: state === "loading",
+      error: state === "error",
+      loginUser,
+      registerUser,
+      loggedIn: authToken !== undefined,
+      logout,
+      user,
+      getUser,
+      deleteUser,
+    }),
+    [
+      state,
+      loginUser,
+      registerUser,
+      authToken,
+      logout,
+      user,
+      getUser,
+      deleteUser,
+    ]
   );
 };

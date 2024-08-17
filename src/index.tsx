@@ -5,14 +5,20 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { RegisterAccount, Login } from "src/pages";
+import { RegisterAccount, Login, Home } from "src/pages";
+
+const ROUTES = { login: "/", register: "/register", home: "/home" };
 
 const router = createBrowserRouter([
-  { path: "/", element: <Login registerRoute="/register" /> },
   {
-    path: "/register",
-    element: <RegisterAccount homeRoute="/" />,
+    path: ROUTES.login,
+    element: <Login registerRoute={ROUTES.register} homeRoute={ROUTES.home} />,
   },
+  {
+    path: ROUTES.register,
+    element: <RegisterAccount loginRoute={ROUTES.login} />,
+  },
+  { path: ROUTES.home, element: <Home loginRoute={ROUTES.login} /> },
   {
     path: "*",
     element: <Navigate to={"/"} />,

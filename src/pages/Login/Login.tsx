@@ -8,11 +8,12 @@ import { useAuthService } from "src/hooks";
 
 export type LoginProps = {
   registerRoute: string;
+  homeRoute: string;
 };
 
-export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
+export const Login: React.FC<LoginProps> = ({ registerRoute, homeRoute }) => {
   const navigate = useNavigate();
-  const { loading, loginUser } = useAuthService();
+  const { loading, loginUser, error } = useAuthService();
   const [formValues, setFormValues] = useState<{
     userName?: string;
     password?: string;
@@ -22,7 +23,7 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
     <LandingContainer>
       <div className={classnames("login-container")}>
         <div className={classnames("heading")}>
-          <h1>National Park Service</h1>
+          <h1>Login</h1>
           <p>Login to access your account</p>
         </div>
 
@@ -49,10 +50,17 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
             if (!formValues.password || !formValues.userName) {
               return;
             }
-            loginUser({
-              username: formValues.userName,
-              password: formValues.password,
-            });
+            loginUser(
+              {
+                username: formValues.userName,
+                password: formValues.password,
+              },
+              {
+                onSuccess: () => {
+                  navigate(homeRoute);
+                },
+              }
+            );
           }}
         >
           <TextInput
@@ -75,6 +83,10 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
             type="submit"
           />
         </form>
+        <div className={classnames("feedback")}>
+          {loading && <p>Loading...</p>}
+          {error && <p className={classnames("error")}>Unable to login</p>}
+        </div>
       </div>
     </LandingContainer>
   );
