@@ -1,12 +1,15 @@
-import "./CreateAccount.scss";
+import "./RegisterAccount.scss";
 import { TextInput, Button, LandingContainer } from "src/components";
 import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthService } from "src/hooks";
+import classnames from "classnames";
 
-export type CreateAccountProps = { homeRoute: string };
+export type RegisterAccountProps = { homeRoute: string };
 
-export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
+export const RegisterAccount: React.FC<RegisterAccountProps> = ({
+  homeRoute,
+}) => {
   const navigate = useNavigate();
   const { registerUser, loading } = useAuthService();
   const [formValues, setFormValues] = useState<{
@@ -39,16 +42,16 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
 
   return (
     <LandingContainer>
-      <div className="new-account-form">
-        <div className="heading">
-          <h1>Create account</h1>
+      <div className={classnames("new-account-form")}>
+        <div className={classnames("heading")}>
+          <h1>Register account</h1>
           <p>
             By making an account, you will be able to return to your saved
             information
           </p>
         </div>
         <form
-          name="Create account"
+          name="Register account"
           onSubmit={(e) => {
             e.preventDefault();
             if (
@@ -84,9 +87,9 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
             }
           />
 
-          <div className="footer">
-            <div className="button-container">
-              <Button label="Create" type="submit" />
+          <div className={classnames("footer")}>
+            <div className={classnames("button-container")}>
+              <Button label="Register" type="submit" />
               <Button
                 label="Home"
                 variant="secondary"
@@ -95,7 +98,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ homeRoute }) => {
                 }}
               />
             </div>
-            {loading && <p>Loading...</p>}
+            {!loading && <p>Loading...</p>}
           </div>
         </form>
       </div>

@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
 import "./Button.scss";
+import classnames from "classnames";
 
 export type ButtonProps = {
   label: string;
@@ -25,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`button ${variant} ${className ?? ""}`}
+      className={classnames("button", variant, className)}
       type={type}
       onClick={onClick}
       tabIndex={0}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LandingContainer } from "src/components";
 import { TextInput, Button } from "src/components";
+import classnames from "classnames";
 
 export type LoginProps = {
   registerRoute: string;
@@ -17,13 +18,13 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
 
   return (
     <LandingContainer>
-      <div className="login-container">
-        <div className="heading">
-          <h1>Login</h1>
+      <div className={classnames("login-container")}>
+        <div className={classnames("heading")}>
+          <h1>National Park Service</h1>
           <p>Login to access your account</p>
         </div>
 
-        <div className="create-account">
+        <div className={classnames("create-account")}>
           <Button
             variant="secondary"
             label="Register"
@@ -33,13 +34,13 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
           />
         </div>
 
-        <div className="divider">
-          <div className="divider-line" />
+        <div className={classnames("divider")}>
+          <div className={classnames("divider-line")} />
           <p>or</p>
-          <div className="divider-line" />
+          <div className={classnames("divider-line")} />
         </div>
 
-        <form className="login-form">
+        <form className={classnames("login-form")}>
           <TextInput
             type="text"
             label="Username"
@@ -53,7 +54,7 @@ export const Login: React.FC<LoginProps> = ({ registerRoute }) => {
             onChange={(c) => setFormValues((v) => ({ ...v, password: c }))}
           />
           <Button
-            className="submit"
+            className={classnames("submit")}
             label="Login"
             onClick={(e) => {
               if (!formValues.password || !formValues.userName) {

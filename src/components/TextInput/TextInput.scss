@@ -3,13 +3,25 @@
 .text-input {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-width: 0;
+
+  &.width-full {
+    width: 100%;
+    min-width: 0;
+  }
+  &.width-fit {
+    width: fit-content;
+  }
 
   .text-input-label {
     color: $text-weak;
     font-size: $sm;
-    min-width: 0;
+    &.width-full {
+      width: 100%;
+      min-width: 0;
+    }
+    &.width-fit {
+      width: fit-content;
+    }
   }
 
   .text-input-input {
@@ -18,10 +30,18 @@
     background-color: $fill;
     border-radius: $xs;
     padding: $xs;
-    min-width: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &.width-full {
+      width: 100%;
+      min-width: 0;
+    }
+    &.width-fit {
+      width: fit-content;
+      min-width: $xxl;
+    }
 
     &:focus-within {
       @include focus;
@@ -74,5 +94,12 @@
     height: $sm;
     padding-left: $xs;
     padding-right: $xs;
+    &.width-full {
+      width: 100%;
+      min-width: 0;
+    }
+    &.width-fit {
+      width: fit-content;
+    }
   }
 }

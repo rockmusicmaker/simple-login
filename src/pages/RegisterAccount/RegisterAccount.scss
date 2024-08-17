@@ -7,7 +7,6 @@
   padding: $xxl;
   min-height: 0;
   width: fit-content;
-  align-items: center;
 
   .heading {
     display: flex;
@@ -21,8 +20,7 @@
   form {
     margin-top: $xl;
     display: flex;
-    width: 100%;
-    min-width: fit-content;
+    width: fit-content;
     flex-direction: column;
 
     & > *:first-child {
@@ -30,7 +28,6 @@
     }
 
     & > * {
-      width: 100%;
       margin-top: $xs;
     }
 
@@ -38,21 +35,19 @@
       margin-top: $xl;
       display: flex;
       width: 100%;
-      min-width: fit-content;
       justify-content: space-between;
       align-items: center;
 
       & > * {
         margin-left: $sm;
       }
-      & > *:first {
+      & > *:first-child {
         margin-left: 0;
       }
 
       .button-container {
         display: flex;
-        width: 100%;
-        min-width: fit-content;
+        width: fit-content;
 
         & > * {
           margin-left: $med;

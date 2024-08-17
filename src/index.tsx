@@ -3,16 +3,15 @@ import "./index.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  redirect,
   Navigate,
 } from "react-router-dom";
-import { CreateAccount, Login } from "src/pages";
+import { RegisterAccount, Login } from "src/pages";
 
 const router = createBrowserRouter([
   { path: "/", element: <Login registerRoute="/register" /> },
   {
     path: "/register",
-    element: <CreateAccount homeRoute="/" />,
+    element: <RegisterAccount homeRoute="/" />,
   },
   {
     path: "*",
