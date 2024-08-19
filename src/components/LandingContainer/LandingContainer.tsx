@@ -13,7 +13,7 @@ export const LandingContainer: React.FC<LandingContainerProps> = ({
       <img
         className={classnames("landing-image")}
         src={`${process.env.PUBLIC_URL}/images/landing.jpeg`}
-        alt="Landing image"
+        alt="Landing"
       />
     </div>
   );
