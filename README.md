@@ -17,7 +17,7 @@ After cloning the repo, simply:
 This application is built with the following:
 
 ## Pages
-The pages serve as the top layer controller as the render visual components, manage state, and leverage hooks
+The pages serve as the top layer controller as they render visual components, manage state, and leverage hooks
 
 ### Login
 The landing page for the application is `Login`. This page collets user's sign-in information and routes them to the home page if they are authenticated or directs user's to register an account.
