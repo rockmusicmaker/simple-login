@@ -7,6 +7,16 @@ All saved data is stored in the browser's local storage to mock a API service wi
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Motivation
+The motivation for this project was to illustrate how a react app could be structured with components and hooks to acheive an authentication workflow.
+
+Main priorities used when designing were:
+1. Testability - Designing well modules to be testable tends to lead to, in my expierence, a more resilient application that can be confidently upgraded and patched. In this application, the hooks and utilities exist as modules with clear inputs and outputs that enable unit and integration testing.
+2. Readability - Using clear and descriptive names, in my expierence, results a more debuggable application where excitisting functionality can be understood and faults easily identified. Encapsulating the authentication service functionality into a hook called useAuthService is intended to quickly convey meaning to that module’s functionality.
+3. Reusability - Focusing on building deep modules that are highly reusable and well tested, in my expierence, leads to subsequent feature development requiring mostly reuse of already existing modules and thus low develeopment cycle and lead times. Using a dedicated hook to interface with the browser’s local storage enables future local storage requirements to be implemented by reusing this hook.
+
+By focusing on the above priorities, each layer of software is intentionally designed to fulfill specific purposes and be tested so that the application is resilient, debuggable, and extendable.
+
 # Running
 After cloning the repo, simply:
 
@@ -40,7 +50,7 @@ Local storage in this application serves two purposes. One is to mock a persiste
 `useLocalStorage` encapsulates interfacing with the browser's local storage.
 
 ### useMockAuthServiceProvider
-`useMockAuthServiceProvider` is a hook used to mock an API server responding to requests from this application.
+`useMockAuthServiceProvider` is a hook used to mock an API server responding to requests from this application. This hook implements simple username and password hashing as well as generating simple user authentication tokens with trivial expiration functionality.
 
 ## Components
 The components module contains a few custom built UI components. 
@@ -57,4 +67,3 @@ A clickable interface element to enable user actions
 # Styling
 Styling for this application was done with sass so that modular css could be used to style each component and page.
 A common `theme.scss` file contains the global styles and reused theme variables across all scss files.
-
