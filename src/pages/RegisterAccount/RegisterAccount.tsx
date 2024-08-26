@@ -18,12 +18,10 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
     confirm?: string;
   }>({});
 
-  const matchingPasswords = useMemo(
-    () =>
-      formValues.password === undefined ||
-      formValues.confirm === undefined ||
-      formValues.password === formValues.confirm,
-    [formValues]
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const notMatchingPasswords = useMemo(
+    () => formSubmitted && formValues.password !== formValues.confirm,
+    [formValues, formSubmitted]
   );
 
   const submitForm = useCallback(
@@ -54,12 +52,13 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
           name="Register account"
           onSubmit={(e) => {
             e.preventDefault();
+            setFormSubmitted(true);
             if (
               !loading &&
               formValues.confirm &&
               formValues.password &&
               formValues.userName &&
-              matchingPasswords
+              !notMatchingPasswords
             ) {
               submitForm(formValues.userName, formValues.password);
             }
@@ -69,21 +68,30 @@ export const RegisterAccount: React.FC<RegisterAccountProps> = ({
             type="text"
             label="Username"
             value={formValues.userName ?? ""}
-            onChange={(c) => setFormValues((v) => ({ ...v, userName: c }))}
+            onChange={(c) => {
+              setFormSubmitted(false);
+              setFormValues((v) => ({ ...v, userName: c }));
+            }}
           />
           <TextInput
             type="password"
             label="Password"
             value={formValues.password ?? ""}
-            onChange={(c) => setFormValues((v) => ({ ...v, password: c }))}
+            onChange={(c) => {
+              setFormSubmitted(false);
+              setFormValues((v) => ({ ...v, password: c }));
+            }}
           />
           <TextInput
             type="password"
             label="Confirm password"
             value={formValues.confirm ?? ""}
-            onChange={(c) => setFormValues((v) => ({ ...v, confirm: c }))}
+            onChange={(c) => {
+              setFormSubmitted(false);
+              setFormValues((v) => ({ ...v, confirm: c }));
+            }}
             errorMessage={
-              !matchingPasswords ? "Password must match" : undefined
+              notMatchingPasswords ? "Password must match" : undefined
             }
           />
 
